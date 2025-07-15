@@ -1,21 +1,35 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import { getAllPokemon } from './utils/pokemon';
+import { getAllPokemon, getPokemon } from './utils/pokemon';
 
 function App() {
   const initialURL = "https://pokeapi.co/api/v2/pokemon" //ポケモンAPIの初期URL
   const [loading, setLoading] = useState(true); //ローディング状態を管理するためのuseStateフック
 
+  // ページ読み込み時にポケモンデータを取得する
   useEffect(() => {
-    //asyncアロー関数を定義し、関数をfetchPokemonData変数に代入
     const fetchPokemonData = async () => {
+      // 全てのポケモンデータを取得
       let res = await getAllPokemon(initialURL);
-      console.log(res);
+      // 各ポケモンの詳細なデータを取得
+      loadPokemon(res.results);
+      // console.log(res.results);
+
+      // ローディングが終わったので状態を更新
       setLoading(false);
     };
     fetchPokemonData(); //fetchPokemonData関数を呼び出す
   }, []);
 
+  // data(results配列)からpokemon(要素オブジェクト)を取得し、getPokemon関数を呼び出す
+  const loadPokemon = (data) => {
+    let _pokemonData = Promise.all(
+      data.map((pokemon) => {
+        let pokemonRecord = getPokemon(pokemon.url)
+        return pokemonRecord;
+      })
+    );
+  };
 
   return (
     <div className="App">
@@ -26,7 +40,7 @@ function App() {
       }
     </div>
   );
-  
+
 }
 
 export default App;

@@ -20,10 +20,10 @@ const Card = ({ pokemon }) => {
 			{/* カード情報 */}
 			<div className="cardInfo">
 				<div className="cardData">
-					<p className="title">重さ: {pokemon.weight} kg</p>
+					<p className="title">重さ: {pokemon.weight/10} kg</p>
 				</div>
 				<div className="cardData">
-					<p className="title">高さ: {pokemon.height} m</p>
+					<p className="title">高さ: {pokemon.height/10} m</p>
 				</div>
 				<div className="cardData">
 					<p className="title">アビリティ: {pokemon.ja_abilities && pokemon.ja_abilities.join(', ')}</p>

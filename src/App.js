@@ -5,6 +5,7 @@ import { getAllPokemon, getPokemon } from './utils/pokemon';
 function App() {
   const initialURL = "https://pokeapi.co/api/v2/pokemon" //ポケモンAPIの初期URL
   const [loading, setLoading] = useState(true); //ローディング状態を管理するためのuseStateフック
+  const [pokemonData, setPokemonData] = useState([]); //ポケモンデータを管理するためのuseStateフック
 
   // ページ読み込み時にポケモンデータを取得する
   useEffect(() => {
@@ -22,14 +23,16 @@ function App() {
   }, []);
 
   // data(results配列)からpokemon(要素オブジェクト)を取得し、getPokemon関数を呼び出す
-  const loadPokemon = (data) => {
-    let _pokemonData = Promise.all(
+  const loadPokemon = async (data) => {
+    let _pokemonData = await Promise.all(
       data.map((pokemon) => {
         let pokemonRecord = getPokemon(pokemon.url)
         return pokemonRecord;
       })
     );
+    setPokemonData(_pokemonData); //取得したポケモンデータを状態に保存
   };
+  console.log(pokemonData); //取得したポケモンデータをコンソールに出力
 
   return (
     <div className="App">

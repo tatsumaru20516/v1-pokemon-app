@@ -1,5 +1,4 @@
 export const getAllPokemon = async (url) => {
-
 	return new Promise((resolve, reject) => {
 		fetch(url)
 			.then((res) => res.json())
@@ -7,4 +6,10 @@ export const getAllPokemon = async (url) => {
 	});
 };
 
-export const getPokemon = async (url) => { };
+export const getPokemon = async (url) => {
+	return new Promise((resolve, reject) => {
+		fetch(url)
+			.then((res) => res.json())
+			.then((data) => resolve(data));
+	});
+};

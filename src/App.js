@@ -6,9 +6,10 @@ import Navbar from './components/Navbar/Navbar';
 
 function App() {
   const initialURL = "https://pokeapi.co/api/v2/pokemon" //ポケモンAPIの初期URL
-  const [loading, setLoading] = useState(true); //ローディング状態を管理するためのuseStateフック
-  const [pokemonData, setPokemonData] = useState([]); //ポケモンデータを管理するためのuseStateフック
-  const [nextURL, setNextURL] = useState(""); //次のページのURLを管理するためのuseStateフック
+  const [loading, setLoading] = useState(true); //ローディング状態(初期はロード中を示すtrue)
+  const [pokemonData, setPokemonData] = useState([]); //1P分のポケモンデータ配列
+  const [nextURL, setNextURL] = useState(""); //次のページのURL
+  const [prevURL, setPrevURL] = useState(""); //前のページのURL
 
   // ページ読み込み時に発火
   useEffect(() => {
@@ -35,18 +36,32 @@ function App() {
     setPokemonData(_pokemonData); //取得したポケモンデータを状態に保存
   };
 
-  // console.log(pokemonData); //取得した単体のポケモンデータをコンソールに出力
+  // console.log(pokemonData); // デバッグ用
 
+  // 「次へ」ボタンの処理
   const handleNextPage = async () => {
     setLoading(true); //ロード中
     let data = await getAllPokemon(nextURL);
     // console.log(data); // デバッグ用
     await loadPokemon(data.results);
     setNextURL(data.next); // 次のページのURLを持つ
+    setPrevURL(data.previous); // 前のページのURLを持つ
     setLoading(false); // ロード完了
   };
 
-  const handlePrevPage = () => {};
+  // 「前へ」ボタンの処理
+  const handlePrevPage = async () => {
+    if (!prevURL) {
+      alert("前のページが存在しません。");
+      return;
+    }
+    setLoading(true); //ロード中
+    let data = await getAllPokemon(prevURL);
+    await loadPokemon(data.results);
+    setNextURL(data.next); // 次のページのURLを持つ
+    setPrevURL(data.previous); // 前のページのURLを持つ
+    setLoading(false); // ロード完了
+  };
 
   // Appコンポーネントとして、JSXを返すメイン部分
   return (

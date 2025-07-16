@@ -82,8 +82,10 @@ function App() {
               </div>
 
               {/* 「前へ」と「次へ」ボタンを表示 */}
-              <button onClick={handlePrevPage}>前へ</button>
-              <button onClick={handleNextPage}>次へ</button>
+              <div className="btn">
+                <button onClick={handlePrevPage}>前へ</button>
+                <button onClick={handleNextPage}>次へ</button>
+              </div>
             </>
           )
         }

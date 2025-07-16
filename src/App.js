@@ -74,6 +74,12 @@ function App() {
           ) : (
             // メインで表示している部分
             <>
+              {/* 「前へ」と「次へ」ボタンを表示 */}
+              <div className="btn">
+                <button onClick={handlePrevPage}>前へ</button>
+                <button onClick={handleNextPage}>次へ</button>
+              </div>
+
               {/* ポケモンカードを表示 */}
               <div className="pokemonCardContainer">
                 {pokemonData.map((pokemon, i) => {

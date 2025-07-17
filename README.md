@@ -1,3 +1,15 @@
+# ポケモン図鑑
+
+このプロジェクトは [PokeAPI](https://pokeapi.co/) を利用して作成したポケモン図鑑アプリです。  
+React の学習を目的としており、非同期処理やAPI通信の実装方法を学びました。
+
+## サンプル画像
+
+![トップページ](public/docs/topPage.png)
+![次のページ](public/docs/nextPage.png)
+
+
+----以下デフォルトREADME-----
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
